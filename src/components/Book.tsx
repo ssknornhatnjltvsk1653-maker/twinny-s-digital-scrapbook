@@ -35,9 +35,14 @@ export default function Book() {
   const bookRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!bookRef.current) return;
+    const el = bookRef.current;
+    if (!el) return;
 
-    const pageFlip = new PageFlip(bookRef.current, {
+    // page-flip rewrites the DOM it is given, so keep a pristine copy to
+    // restore on cleanup (React StrictMode remounts this effect twice).
+    const original = el.innerHTML;
+
+    const pageFlip = new PageFlip(el, {
       width: W,
       height: H,
       autoSize: false,
@@ -48,10 +53,15 @@ export default function Book() {
       startPage: 0,
     } as ConstructorParameters<typeof PageFlip>[1]);
 
-    pageFlip.loadFromHTML(bookRef.current.querySelectorAll(".book-page"));
+    pageFlip.loadFromHTML(el.querySelectorAll(".book-page"));
 
     return () => {
-      pageFlip.destroy();
+      try {
+        pageFlip.destroy();
+      } catch {
+        /* noop */
+      }
+      el.innerHTML = original;
     };
   }, []);
 
