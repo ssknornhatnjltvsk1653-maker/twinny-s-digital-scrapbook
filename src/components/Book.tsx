@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { PageFlip } from "page-flip";
+import type { PageFlip } from "page-flip";
 
 const W = 420;
 const H = 560;
