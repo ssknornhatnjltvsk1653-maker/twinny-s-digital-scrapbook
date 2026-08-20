@@ -48,22 +48,33 @@ export default function Book() {
     ) as unknown as NodeListOf<HTMLElement>;
     if (!pages.length) return;
 
-    const pageFlip = new PageFlip(el, {
-      width: W,
-      height: H,
-      autoSize: false,
-      showCover: true,
-      drawShadow: true,
-      maxShadowOpacity: 0.5,
-      usePortrait: false,
-      startPage: 0,
-    } as ConstructorParameters<typeof PageFlip>[1]);
+    let flip: PageFlip | null = null;
+    let cancelled = false;
 
-    pageFlip.loadFromHTML(pages);
+    // Browser-only library: import it after mount so SSR never touches it.
+    void import("page-flip").then((mod) => {
+      if (cancelled) return;
+      const Flip = (mod as unknown as { PageFlip: typeof PageFlip }).PageFlip ??
+        (mod as unknown as { default: typeof PageFlip }).default;
+
+      flip = new Flip(el, {
+        width: W,
+        height: H,
+        autoSize: false,
+        showCover: true,
+        drawShadow: true,
+        maxShadowOpacity: 0.5,
+        usePortrait: false,
+        startPage: 0,
+      } as ConstructorParameters<typeof PageFlip>[1]);
+
+      flip.loadFromHTML(pages);
+    });
 
     return () => {
+      cancelled = true;
       try {
-        pageFlip.destroy();
+        flip?.destroy();
       } catch {
         /* noop */
       }
