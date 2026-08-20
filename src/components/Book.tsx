@@ -42,6 +42,12 @@ export default function Book() {
     // restore on cleanup (React StrictMode remounts this effect twice).
     const original = el.innerHTML;
 
+    // Grab the page nodes BEFORE constructing: the engine clears the container.
+    const pages = Array.from(
+      el.querySelectorAll<HTMLElement>(".book-page"),
+    ) as unknown as NodeListOf<HTMLElement>;
+    if (!pages.length) return;
+
     const pageFlip = new PageFlip(el, {
       width: W,
       height: H,
@@ -53,7 +59,7 @@ export default function Book() {
       startPage: 0,
     } as ConstructorParameters<typeof PageFlip>[1]);
 
-    pageFlip.loadFromHTML(el.querySelectorAll(".book-page"));
+    pageFlip.loadFromHTML(pages);
 
     return () => {
       try {
