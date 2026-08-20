@@ -156,6 +156,11 @@
 }
 
 .scrap-note {
+  background: oklch(0.99 0.015 90 / 0.86);
+  border: 1px dashed oklch(0.78 0.08 20 / 0.7);
+  border-radius: 0.6rem;
+  padding: 0.85rem 0.7rem;
+  box-shadow: 0 6px 16px oklch(0 0 0 / 0.12);
   font-family: "Patrick Hand", ui-rounded, "Comic Sans MS", cursive;
   color: oklch(0.32 0.05 25);
   text-align: center;

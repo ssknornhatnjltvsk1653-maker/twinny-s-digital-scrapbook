@@ -25,7 +25,7 @@ function Sticker({
 
 function Note({ children }: { children: ReactNode }) {
   return (
-    <div className="absolute inset-0 z-[70] flex items-center justify-center p-7 pointer-events-none">
+    <div className="absolute inset-0 z-[90] flex items-center justify-center p-6 pointer-events-none">
       <div className="scrap-note w-full">{children}</div>
     </div>
   );
