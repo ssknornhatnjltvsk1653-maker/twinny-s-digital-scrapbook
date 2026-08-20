@@ -324,6 +324,26 @@ export default function Book() {
         </Note>
       </div>
 
+      {/* Inside back page (keeps the spread even for the flip engine) */}
+      <div
+        className="book-page relative overflow-hidden bg-amber-50 text-black"
+        style={pageStyle}
+      >
+        <Sticker src="/pages/right.jpg" className="" />
+        <Sticker
+          src="/elements/kit.png"
+          className="scale-45 -translate-y-6 z-[60]"
+        />
+        <Sticker
+          src="/elements/twoStar.png"
+          className="scale-26 translate-x-22 translate-y-44 z-[60]"
+        />
+        <div className="absolute inset-x-0 bottom-14 z-[70] text-center">
+          <span className="scrap-note scrap-loud">the end 🎀🍓</span>
+        </div>
+      </div>
+
+
       {/* Back Cover */}
       <div
         className="book-page relative overflow-hidden bg-[#8fb7d9]"
