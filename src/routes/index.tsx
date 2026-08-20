@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ClientOnly } from "@tanstack/react-router";
 import Book from "@/components/Book";
 
 export const Route = createFileRoute("/")({
@@ -28,9 +27,7 @@ function Index() {
   return (
     <main className="scrap-stage flex min-h-screen flex-col items-center justify-center overflow-hidden p-4">
       <h1 className="sr-only">A digital scrapbook for my bestest twinny</h1>
-      <ClientOnly fallback={<p className="scrap-text">loading your scrapbook 🍓</p>}>
-        <Book />
-      </ClientOnly>
+      <Book />
       <p className="scrap-hint mt-6">drag the page corner to flip 🎀</p>
     </main>
   );
